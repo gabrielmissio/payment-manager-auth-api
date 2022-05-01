@@ -1,8 +1,10 @@
-const { InternalServerError } = require('../../utils/errors');
+const { InternalServerError, UnauthorizedError } = require('../../utils/errors');
 
 const isNumeric = (value) => /^-?\d+$/.test(value);
 
 const ok = (data) => ({ data, code: 200 });
+
+const unauthorized = (error) => ({ data: { error: new UnauthorizedError(error).message }, code: 401 });
 
 const exceptionHandler = (error) => ({
   code: (isNumeric(error.code) && error.code) || 500,
@@ -11,5 +13,6 @@ const exceptionHandler = (error) => ({
 
 module.exports = {
   ok,
+  unauthorized,
   exceptionHandler
 };

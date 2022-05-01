@@ -1,9 +1,10 @@
 const { MissingParamError } = require('../../utils/errors');
 const { COGNITO_CLIENT } = require('../../main/config/aws-resources');
 const { USER_POOL_ID, USER_POOL_CLIENT_ID } = require('../../main/config/env');
+const { ExceptionsAdapter } = require('../adapters');
 
 const signin = async ({ username, password }) => {
-  if (!username) throw new MissingParamError('username');
+  // if (!username) throw new MissingParamError('username');
   if (!password) throw new MissingParamError('password');
 
   const parameters = {
@@ -16,7 +17,12 @@ const signin = async ({ username, password }) => {
     }
   };
 
-  return COGNITO_CLIENT.adminInitiateAuth(parameters).promise();
+  try {
+    const response = await COGNITO_CLIENT.adminInitiateAuth(parameters).promise();
+    return response;
+  } catch (error) {
+    return ExceptionsAdapter.signinExceptionHandler(error);
+  }
 };
 
 const changePassword = async ({ previousPassword, proposedPassword, accessToken }) => {

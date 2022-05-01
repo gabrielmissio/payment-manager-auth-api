@@ -1,10 +1,14 @@
 const { ResponseHelper } = require('../helpers');
 const { AuthService } = require('../../domain/services');
+const {
+  ErrorMessagesEnum: { INCORRECT_USERNAME_OR_PASSWORD }
+} = require('../../utils/enums');
 
 const signin = async (request) => {
   try {
     // TODO: implement validation
     const authModel = await AuthService.signin(request.body);
+    if (!authModel) return ResponseHelper.unauthorized(INCORRECT_USERNAME_OR_PASSWORD);
 
     return ResponseHelper.ok(authModel); // TODO: implement serialize
   } catch (error) {
