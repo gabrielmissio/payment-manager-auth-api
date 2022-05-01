@@ -26,5 +26,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
     "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1125.0"
   }
 }
