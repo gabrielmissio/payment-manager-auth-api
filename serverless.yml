@@ -1,0 +1,47 @@
+service: payment-manager-auth
+
+custom:
+  serverless-offline:
+    httpPort: 3001
+    lambdaPort: 3002
+    host: 0.0.0.0
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  lambdaHashingVersion: 20201221
+  environment:
+    NODE_ENV: ${opt:stage, 'dev'}
+    REGION: ${opt:region, 'localhost'}
+    USER_POOL_ID: ${ssm:/payment-manager/${opt:stage, 'dev'}/cognito/user-pool/id}
+    USER_POOL_CLIENT_ID: ${ssm:/payment-manager/${opt:stage, 'dev'}/cognito/user-pool-client/id}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - 'cognito-idp:*'
+          Resource:
+            - ${ssm:/payment-manager/${opt:stage, 'dev'}/cognito/user-pool/arn}
+
+plugins:
+  - serverless-offline
+
+package:
+  patterns:
+    - '!./**'
+    - './node_modules/**'
+    - './index-app.js'
+    - './src/**'
+
+functions:
+  app:
+    handler: index-app.handler
+    timeout: 6
+    events:
+      - http:
+          cors: true
+          method: POST
+          path: '/signin'
