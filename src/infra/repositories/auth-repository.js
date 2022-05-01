@@ -36,7 +36,12 @@ const changePassword = async ({ previousPassword, proposedPassword, accessToken 
     AccessToken: accessToken
   };
 
-  return COGNITO_CLIENT.changePassword(parameters).promise();
+  try {
+    const response = await COGNITO_CLIENT.changePassword(parameters).promise();
+    return response;
+  } catch (error) {
+    return ExceptionsAdapter.changePasswordExceptionHandler(error);
+  }
 };
 
 const forgotPassword = async ({ username }) => {

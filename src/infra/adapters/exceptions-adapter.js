@@ -4,6 +4,13 @@ const signinExceptionHandler = (error) => {
   throw error;
 };
 
+const changePasswordExceptionHandler = (error) => {
+  if (error.code === 'NotAuthorizedException') return null;
+
+  throw error;
+};
+
 module.exports = {
-  signinExceptionHandler
+  signinExceptionHandler,
+  changePasswordExceptionHandler
 };
