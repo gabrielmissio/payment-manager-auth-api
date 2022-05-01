@@ -59,9 +59,29 @@ const confirmForgotPassword = async ({ username, password, confirmationCode }) =
   return COGNITO_CLIENT.confirmForgotPassword(parameters).promise();
 };
 
+const respondAuthChallenge = async ({ username, password, session }) => {
+  if (!username) throw new MissingParamError('username');
+  if (!password) throw new MissingParamError('password');
+  if (!session) throw new MissingParamError('session');
+
+  const parameters = {
+    ChallengeName: 'NEW_PASSWORD_REQUIRED',
+    ClientId: USER_POOL_CLIENT_ID,
+    UserPoolId: USER_POOL_ID,
+    Session: session,
+    ChallengeResponses: {
+      USERNAME: username,
+      NEW_PASSWORD: password
+    }
+  };
+
+  return COGNITO_CLIENT.adminRespondToAuthChallenge(parameters).promise();
+};
+
 module.exports = {
   signin,
   changePassword,
   forgotPassword,
-  confirmForgotPassword
+  confirmForgotPassword,
+  respondAuthChallenge
 };

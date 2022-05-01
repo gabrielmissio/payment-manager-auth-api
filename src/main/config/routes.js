@@ -12,4 +12,5 @@ module.exports = (app) => {
   router.post('/change-password', adapt(AuthController.changePassword));
   router.post('/forgot-password', adapt(AuthController.forgotPassword));
   router.post('/confirm-forgot-password', adapt(AuthController.confirmForgotPassword));
+  router.post('/respond-auth-challenge', adapt(AuthController.respondAuthChallenge));
 };

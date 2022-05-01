@@ -52,9 +52,22 @@ const confirmForgotPassword = async (request) => {
   }
 };
 
+const respondAuthChallenge = async (request) => {
+  try {
+    // TODO: implement validation
+    const authModel = await AuthService.respondAuthChallenge(request.body);
+
+    return ResponseHelper.ok(authModel); // TODO: implement serialize
+  } catch (error) {
+    console.error(error);
+    return ResponseHelper.exceptionHandler(error);
+  }
+};
+
 module.exports = {
   signin,
   changePassword,
   forgotPassword,
-  confirmForgotPassword
+  confirmForgotPassword,
+  respondAuthChallenge
 };

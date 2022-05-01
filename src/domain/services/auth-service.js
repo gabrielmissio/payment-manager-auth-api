@@ -29,9 +29,17 @@ const confirmForgotPassword = async (payload) => {
   return response;
 };
 
+const respondAuthChallenge = async (payload) => {
+  if (!payload) throw new MissingParamError('payload');
+
+  const authModel = await AuthRepository.respondAuthChallenge(payload);
+  return authModel;
+};
+
 module.exports = {
   signin,
   changePassword,
   forgotPassword,
-  confirmForgotPassword
+  confirmForgotPassword,
+  respondAuthChallenge
 };
