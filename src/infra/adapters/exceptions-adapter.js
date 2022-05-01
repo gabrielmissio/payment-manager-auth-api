@@ -16,8 +16,15 @@ const confirmForgotPasswordExceptionHandler = (error) => {
   throw error;
 };
 
+const respondAuthChallengeExceptionHandler = (error) => {
+  if (error.code === 'NotAuthorizedException') return null;
+
+  throw error;
+};
+
 module.exports = {
   signinExceptionHandler,
   changePasswordExceptionHandler,
-  confirmForgotPasswordExceptionHandler
+  confirmForgotPasswordExceptionHandler,
+  respondAuthChallengeExceptionHandler
 };

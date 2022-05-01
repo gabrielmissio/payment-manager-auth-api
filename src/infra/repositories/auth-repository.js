@@ -91,7 +91,12 @@ const respondAuthChallenge = async ({ username, password, session }) => {
     }
   };
 
-  return COGNITO_CLIENT.adminRespondToAuthChallenge(parameters).promise();
+  try {
+    const response = await COGNITO_CLIENT.adminRespondToAuthChallenge(parameters).promise();
+    return response;
+  } catch (error) {
+    return ExceptionsAdapter.respondAuthChallengeExceptionHandler(error);
+  }
 };
 
 module.exports = {
