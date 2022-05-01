@@ -10,7 +10,14 @@ const changePasswordExceptionHandler = (error) => {
   throw error;
 };
 
+const confirmForgotPasswordExceptionHandler = (error) => {
+  if (error.code === 'ExpiredCodeException') return null;
+
+  throw error;
+};
+
 module.exports = {
   signinExceptionHandler,
-  changePasswordExceptionHandler
+  changePasswordExceptionHandler,
+  confirmForgotPasswordExceptionHandler
 };

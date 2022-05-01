@@ -67,7 +67,12 @@ const confirmForgotPassword = async ({ username, password, confirmationCode }) =
     Password: password
   };
 
-  return COGNITO_CLIENT.confirmForgotPassword(parameters).promise();
+  try {
+    const response = await COGNITO_CLIENT.confirmForgotPassword(parameters).promise();
+    return response;
+  } catch (error) {
+    return ExceptionsAdapter.confirmForgotPasswordExceptionHandler(error);
+  }
 };
 
 const respondAuthChallenge = async ({ username, password, session }) => {

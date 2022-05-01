@@ -1,7 +1,7 @@
 const { ResponseHelper } = require('../helpers');
 const { AuthService } = require('../../domain/services');
 const {
-  ErrorMessagesEnum: { INCORRECT_USERNAME_OR_PASSWORD, PASSWORD_CHANGED_SUCCESSFULLY }
+  ErrorMessagesEnum: { INCORRECT_USERNAME_OR_PASSWORD, PASSWORD_CHANGED_SUCCESSFULLY, INVALID_CONFIRMATION_CODE }
 } = require('../../utils/enums');
 
 const signin = async (request) => {
@@ -49,9 +49,10 @@ const forgotPassword = async (request) => {
 const confirmForgotPassword = async (request) => {
   try {
     // TODO: implement validation
-    const response = await AuthService.confirmForgotPassword(request.body);
+    const isSuccess = await AuthService.confirmForgotPassword(request.body);
+    if (!isSuccess) return ResponseHelper.unauthorized(INVALID_CONFIRMATION_CODE);
 
-    return ResponseHelper.ok(response); // TODO: implement serialize
+    return ResponseHelper.ok({ message: PASSWORD_CHANGED_SUCCESSFULLY }); // TODO: implement serialize
   } catch (error) {
     console.error(error);
     return ResponseHelper.exceptionHandler(error);
