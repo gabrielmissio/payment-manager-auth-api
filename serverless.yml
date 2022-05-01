@@ -1,6 +1,12 @@
 service: payment-manager-auth
 
 custom:
+  authorizer:
+    name: authorizer
+    arn: ${ssm:/payment-manager/${opt:stage, 'dev'}/cognito/user-pool/arn}
+    identitySource: method.request.header.Authorization
+    scopes:
+      - aws.cognito.signin.user.admin
   serverless-offline:
     httpPort: 3001
     lambdaPort: 3002
@@ -45,3 +51,16 @@ functions:
           cors: true
           method: POST
           path: '/signin'
+      - http:
+          cors: true
+          method: POST
+          path: '/change-password'
+          authorizer: ${self:custom.authorizer}
+      - http:
+          cors: true
+          method: POST
+          path: '/forgot-password'
+      - http:
+          cors: true
+          method: POST
+          path: '/confirm-forgot-password'
