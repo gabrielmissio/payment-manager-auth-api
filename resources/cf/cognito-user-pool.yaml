@@ -26,29 +26,19 @@ Resources:
         InviteMessageTemplate: 
           EmailMessage: 'Seu usuario: {username} e, sua senha temporaria: {####}'
           EmailSubject: 'Senha temporaria'
-      AutoVerifiedAttributes:
-        - email
       EmailVerificationSubject: 'Seu Codigo de verificacao'
       EmailVerificationMessage: 'Seu codigo de verificacao: {####}.'
       MfaConfiguration: 'OFF'
       Policies:
         PasswordPolicy:
-          MinimumLength: 12
+          MinimumLength: 8
           RequireLowercase: true
           RequireNumbers: true
           RequireSymbols: true
           RequireUppercase: true
           TemporaryPasswordValidityDays: 7
-      Schema:
-        - Name: scope
-          AttributeDataType: String
-          Mutable: true
-          Required: false
-          StringAttributeConstraints:
-            MaxLength: 256
-            MinLength: 1
-      UsernameAttributes:
-        - email
+      AliasAttributes:
+        - preferred_username
       UsernameConfiguration:
         CaseSensitive: false
 
