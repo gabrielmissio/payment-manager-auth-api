@@ -1,11 +1,5 @@
 # payment-manager-auth-api
 
-## deploy user pool and user pool client
-
-```bash
-aws --region <REGION> cloudformation create-stack --stack-name payment-manager-user-pool-<STAGE> --template-body file://resources/cf/cognito-user-pool.yaml --parameters ParameterKey=StageName,ParameterValue=<STAGE>
-```
-
 ## signup user
 
 ```bash
