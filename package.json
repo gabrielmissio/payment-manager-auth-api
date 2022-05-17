@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "sls offline start --stage dev --region us-east-1",
     "lint": "npx eslint .",
     "prepare": "husky install"
   },
@@ -30,6 +31,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1125.0",
+    "cookie-parser": "^1.4.6",
     "express": "^4.18.1",
     "serverless-http": "^3.0.1"
   }

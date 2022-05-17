@@ -2,7 +2,7 @@ const { InternalServerError, UnauthorizedError } = require('../../utils/errors')
 
 const isNumeric = (value) => /^-?\d+$/.test(value);
 
-const ok = (data) => ({ data, code: 200 });
+const ok = (data, cookie) => ({ data, cookie, code: 200 });
 
 const unauthorized = (error) => ({ data: { error: new UnauthorizedError(error).message }, code: 401 });
 

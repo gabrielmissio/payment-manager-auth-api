@@ -15,7 +15,13 @@ const signin = async (request) => {
     const authModel = await AuthService.signin(request.body);
     if (!authModel) return ResponseHelper.unauthorized(INCORRECT_USERNAME_OR_PASSWORD);
 
-    return ResponseHelper.ok(authModel); // TODO: implement serialize
+    const cookie = {
+      name: 'access_token',
+      value: authModel.AuthenticationResult.AccessToken
+    };
+    const response = { message: 'Logged in successfully 😊 👌' };
+
+    return ResponseHelper.ok(response, cookie);
   } catch (error) {
     console.error(error);
     return ResponseHelper.exceptionHandler(error);
