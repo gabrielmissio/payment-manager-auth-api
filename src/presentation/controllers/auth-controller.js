@@ -2,6 +2,8 @@ const { ResponseHelper } = require('../helpers');
 const { AuthService } = require('../../domain/services');
 const {
   ErrorMessagesEnum: {
+    LOGGED_IN_SUCCESSFULLY,
+    LOGGED_OUT_SUCCESSFULLY,
     INCORRECT_USERNAME_OR_PASSWORD,
     PASSWORD_CHANGED_SUCCESSFULLY,
     INVALID_CONFIRMATION_CODE,
@@ -19,7 +21,7 @@ const login = async (request) => {
       name: 'access_token',
       value: authModel.AuthenticationResult.AccessToken
     };
-    const response = { message: 'Logged in successfully 😊 👌' };
+    const response = { message: LOGGED_IN_SUCCESSFULLY };
 
     return ResponseHelper.ok(response, cookie);
   } catch (error) {
@@ -33,7 +35,7 @@ const logout = async () => {
     const cookie = {
       name: 'access_token'
     };
-    const response = { message: 'Successfully logged out 😏 🍀' };
+    const response = { message: LOGGED_OUT_SUCCESSFULLY };
 
     return ResponseHelper.ok(response, cookie);
   } catch (error) {
