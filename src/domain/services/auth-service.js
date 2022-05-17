@@ -1,10 +1,10 @@
 const { MissingParamError } = require('../../utils/errors');
 const { AuthRepository } = require('../../infra/repositories');
 
-const signin = async (payload) => {
+const login = async (payload) => {
   if (!payload) throw new MissingParamError('payload');
 
-  const authModel = await AuthRepository.signin(payload);
+  const authModel = await AuthRepository.login(payload);
   return authModel;
 };
 
@@ -37,7 +37,7 @@ const respondAuthChallenge = async (payload) => {
 };
 
 module.exports = {
-  signin,
+  login,
   changePassword,
   forgotPassword,
   confirmForgotPassword,

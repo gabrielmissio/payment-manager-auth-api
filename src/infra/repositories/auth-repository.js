@@ -3,7 +3,7 @@ const { COGNITO_CLIENT } = require('../../main/config/aws-resources');
 const { USER_POOL_ID, USER_POOL_CLIENT_ID } = require('../../main/config/env');
 const { ExceptionsAdapter } = require('../adapters');
 
-const signin = async ({ username, password }) => {
+const login = async ({ username, password }) => {
   // if (!username) throw new MissingParamError('username');
   if (!password) throw new MissingParamError('password');
 
@@ -100,7 +100,7 @@ const respondAuthChallenge = async ({ username, password, session }) => {
 };
 
 module.exports = {
-  signin,
+  login,
   changePassword,
   forgotPassword,
   confirmForgotPassword,

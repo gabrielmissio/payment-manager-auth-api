@@ -50,7 +50,7 @@ functions:
       - http:
           cors: true
           method: POST
-          path: '/signin'
+          path: '/login'
       - http:
           cors: true
           method: POST

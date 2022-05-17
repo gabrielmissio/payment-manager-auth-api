@@ -8,7 +8,7 @@ const {
 module.exports = (app) => {
   app.use('/', router);
 
-  router.post('/signin', adapt(AuthController.signin, true));
+  router.post('/login', adapt(AuthController.login, true));
   router.post('/change-password', adapt(AuthController.changePassword));
   router.post('/forgot-password', adapt(AuthController.forgotPassword));
   router.post('/confirm-forgot-password', adapt(AuthController.confirmForgotPassword));

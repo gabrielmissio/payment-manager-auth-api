@@ -9,10 +9,10 @@ const {
   }
 } = require('../../utils/enums');
 
-const signin = async (request) => {
+const login = async (request) => {
   try {
     // TODO: implement validation
-    const authModel = await AuthService.signin(request.body);
+    const authModel = await AuthService.login(request.body);
     if (!authModel) return ResponseHelper.unauthorized(INCORRECT_USERNAME_OR_PASSWORD);
 
     const cookie = {
@@ -84,7 +84,7 @@ const respondAuthChallenge = async (request) => {
 };
 
 module.exports = {
-  signin,
+  login,
   changePassword,
   forgotPassword,
   confirmForgotPassword,
