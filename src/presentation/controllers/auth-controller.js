@@ -28,6 +28,20 @@ const login = async (request) => {
   }
 };
 
+const logout = async () => {
+  try {
+    const cookie = {
+      name: 'access_token'
+    };
+    const response = { message: 'Successfully logged out 😏 🍀' };
+
+    return ResponseHelper.ok(response, cookie);
+  } catch (error) {
+    console.error(error);
+    return ResponseHelper.exceptionHandler(error);
+  }
+};
+
 const changePassword = async (request) => {
   try {
     // TODO: implement validation
@@ -85,6 +99,7 @@ const respondAuthChallenge = async (request) => {
 
 module.exports = {
   login,
+  logout,
   changePassword,
   forgotPassword,
   confirmForgotPassword,

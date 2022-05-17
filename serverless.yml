@@ -54,6 +54,10 @@ functions:
       - http:
           cors: true
           method: POST
+          path: '/logout'
+      - http:
+          cors: true
+          method: POST
           path: '/change-password'
           authorizer: ${self:custom.authorizer}
       - http:
